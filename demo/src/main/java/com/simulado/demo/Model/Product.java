@@ -17,6 +17,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "ProductCategory.ProductCategoryId")
+    private Integer productCategoryId;
 
     @Column(nullable = false,  length = 100)
     private String name;
