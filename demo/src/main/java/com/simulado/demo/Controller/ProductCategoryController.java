@@ -39,8 +39,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/{id}/products")
-    public ResponseEntity<Product> getProducts(@PathVariable Integer id){
-
+    public ResponseEntity<List<Product>> getProducts(@PathVariable Integer id){
+        List<Product> products = productRepository.findByProductCategoryID(id);
+        return products.isEmpty()
+            ? ResponseEntity.noContent().build()
+            : ResponseEntity.ok(products);
     }
     
 
