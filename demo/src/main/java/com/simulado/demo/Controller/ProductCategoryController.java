@@ -1,7 +1,6 @@
 package com.simulado.demo.Controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.service.annotation.PatchExchange;
 
 import com.simulado.demo.Model.Product;
@@ -10,12 +9,10 @@ import com.simulado.demo.Repository.ProductCategoryRepository;
 import com.simulado.demo.Repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -45,6 +42,28 @@ public class ProductCategoryController {
             ? ResponseEntity.noContent().build()
             : ResponseEntity.ok(products);
     }
+
+
+    @PostMapping("/productCategory")
+    public ProductCategory post(@RequestBody ProductCategory productCategory) {
+        return productCategoryRepository.save(productCategory);
+    }
+
+
+    @PutMapping("/productCategory/{id}")
+    public ProductCategory put(@PathVariable Integer id, @RequestBody ProductCategory productCategory){
+
+
+        Optional<ProductCategory> pd = productCategoryRepository.findById(id);
+        productCategoryRepository.delete(pd);
+
+
+        return productCategoryRepository.save(productCategory);
+    }
+
+
+
+
     
 
 
